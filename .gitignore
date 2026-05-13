@@ -6,6 +6,8 @@ logs/
 
 *.pyc
 __pycache__/
+*.goutputstream-*
 
 src/FAST_LIO/PCD/scans.pcd
 src/darknet_ros/darknet_ros/yolo_network_config/weights/yolov2.weights
+src/point_lio/lib/pointlio_mapping
