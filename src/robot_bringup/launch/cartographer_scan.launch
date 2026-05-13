@@ -1,0 +1,14 @@
+<launch>
+
+   <!--发布静态坐标转换节点，绑定了无人机机体坐标系和雷达坐标系laser的相对位置关系 -->
+   <node pkg="tf" type="static_transform_publisher"  name="base_link_to_laser" args="0 0 0.05 3.14 0 0 base_link laser 100" />
+    
+   <!--启动MAVROS功能节点，实现PX4和ROS的通信-->
+   <include file="$(find robot_bringup)/launch/px4.launch" />
+
+   <!--启动镭神N10激光雷达 -->
+   <include file="$(find robot_bringup)/launch/lsn10.launch" />
+
+   <!-- 启动cartographer建图节点 -->
+   <include file="$(find robot_bringup)/launch/cartographer_ros/demo_revo_lds.launch" />
+</launch>

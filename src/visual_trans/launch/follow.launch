@@ -1,0 +1,6 @@
+  <launch>
+    
+    <node pkg="follow" type="follow2" name="follow2" output="screen"/>
+
+    <node pkg="follow" type="follow3" name="follow3" />
+  </launch>

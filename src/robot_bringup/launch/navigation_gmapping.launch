@@ -1,0 +1,16 @@
+<launch> 
+   
+    <!--启动gmapping建图节点， -->
+    <include file="$(find robot_bringup)/launch/gmapping.launch" />
+  
+    <!--启动move_base导航节点 -->
+    <include file="$(find ros_navigation)/launch/navigation_param.launch" />
+    
+  
+    <param name="position_z_param" value = "0.35"/>				
+    <node pkg="px4_command" type="ros_nav_quadrotor_node" name="ros_nav_quadrotor_node" output="screen">
+    </node>
+
+
+</launch>
+

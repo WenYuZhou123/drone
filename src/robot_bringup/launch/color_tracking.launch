@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!--设置静态坐标系 -->
+  <node pkg="tf" type="static_transform_publisher"  name="t265_camera_link_to_base_link"  args="0 0 0 0 0 0 t265_link base_link 100" />  	
+  <!--启动mavros节点 -->
+  <include file="$(find robot_bringup)/launch/px4.launch" />
+  <!--启动T265节点和D435 -->
+  <include file="$(find realsense2_camera)/launch/rs_d400_and_t265.launch" />
+  <!--启动坐标转换节点 -->
+  <include file="$(find vision_to_mavros)/launch/t265_tf_to_mavros.launch" /> 
+     	
+  <!-- 开启色块跟踪节点  -->
+  <node name='color_recognition' pkg="color_tracking" type="VisualFollow_px4_ctrl.py" output="screen">
+    <!--  上传相关参数到参数服务器 -->
+    <rosparam ns='visual_angle'>
+      vertical :   46.7
+      horizontal : 60
+    </rosparam>
+    <rosparam ns='velocity_multiple'>
+      forward:    0.6
+      forward_kd: 0.02
+      turn:       1.2
+      turn_kd:    0.02
+    </rosparam>
+    <rosparam ns='velocity_restrict'>
+      forward:   0.4
+      turn:      2
+    </rosparam>
+    <rosparam ns='targetred'>
+      upper : [118, 110, 16]
+      lower : [180, 255,255]
+      </rosparam>
+    <rosparam ns='targetblue'>
+      upper : [10,110, 120]
+      lower : [110,255, 255]
+      </rosparam>
+    <rosparam ns='targetgreen'>
+      upper : [30,30, 60]
+      lower : [90,255,255]
+      </rosparam>
+    <rosparam ns='targetyellow'>
+      upper : [80, 20,120]
+      lower : [110, 255, 255]
+      </rosparam>
+    <param name='targetDistance' value='600' type='double' />
+
+  </node>
+</launch>

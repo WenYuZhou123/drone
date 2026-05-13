@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!--设置静态坐标系 -->
+  <node pkg="tf" type="static_transform_publisher"  name="t265_camera_link_to_base_link"  args="0 0 0 0 0 0 t265_link base_link 100" />  	
+  <!--启动mavros节点 -->
+  <include file="$(find robot_bringup)/launch/px4.launch" />
+  <!--启动T265节点和D435 -->
+  <include file="$(find realsense2_camera)/launch/rs_d400_and_t265.launch" />
+  <!--启动坐标转换节点 -->
+  <include file="$(find vision_to_mavros)/launch/t265_tf_to_mavros.launch" /> 
+  
+  <node name='visual_line_follow' pkg="visual_line_follow" type="line_follow.py" output="screen" />
+     	
+  
+</launch>

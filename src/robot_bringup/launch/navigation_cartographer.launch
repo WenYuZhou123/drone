@@ -1,0 +1,12 @@
+<launch> 
+   
+    <include file="$(find robot_bringup)/launch/cartographer.launch" />
+
+    <include file="$(find ros_navigation)/launch/navigation_param.launch" />
+
+	<param name="position_z_param" value = "0.3"/>				
+    <node pkg="px4_command" type="ros_nav_quadrotor_node" name="ros_nav_quadrotor_node" output="screen">
+    </node>
+
+</launch>
+

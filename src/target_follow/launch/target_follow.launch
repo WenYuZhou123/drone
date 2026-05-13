@@ -1,0 +1,28 @@
+
+<launch>
+    
+    <param name="linear_x_p" value="0.7"/>
+    <param name="linear_x_d" value="0.6"/>
+    
+    <param name="linear_z_p" value="0.1"/>
+    <param name="linear_z_d" value="0.2"/>
+    
+    <param name="yaw_rate_p" value="0.8"/>
+    <param name="yaw_rate_d" value="1.0"/>
+    
+    <param name="target_x_angle"  value="0"/>
+    <param name="target_distance" value="2000"/>
+    <param name="target_hgt" value="0"/>
+    
+    <param name="x_angle_threshold" value="0.02"/>
+    <param name="distance_threshold" value="2000"/>
+    <param name="hgt_threshold" value="200"/> 
+    
+    <param name="max_velocity_z" value="0.3"/>
+    <param name="max_raw_velocity_x" value="1.5"/>
+    <param name="max_raw_yaw_rate" value="1.0"/> 
+     
+    
+  <node pkg="target_follow" type="target_follow" name="target_follow" output="screen"/>
+</launch>
+

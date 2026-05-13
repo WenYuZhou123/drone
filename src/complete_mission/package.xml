@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>complete_mission</name>
+  <version>0.0.0</version>
+  <description>The complete_mission package</description>
+
+  <maintainer email="wang@todo.todo">wang</maintainer>
+  <license>TODO</license>
+
+  <!-- 添加依赖 -->
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>move_base_msgs</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>serial</build_depend>
+  <build_depend>mavros_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>geographic_msgs</build_depend>
+  <build_depend>yolov8_ros_msgs</build_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>move_base_msgs</exec_depend>
+  <exec_depend>actionlib</exec_depend>
+  <exec_depend>dynamic_reconfigure</exec_depend>
+  <exec_depend>tf</exec_depend>
+  <exec_depend>serial</exec_depend>
+  <exec_depend>mavros_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>geographic_msgs</exec_depend>
+  <exec_depend>yolov8_ros_msgs</exec_depend>
+
+  <export>
+    <!-- 其他需要导出的信息 -->
+  </export>
+</package>

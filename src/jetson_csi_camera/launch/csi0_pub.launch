@@ -1,0 +1,9 @@
+<launch>
+  <node pkg="jetson_csi_camera" type="csi0_pub.py" name="csi0_pub" ns="csi0" output="screen">
+    <param name="width" value="1280"/>
+    <param name="height" value="720"/>
+    <param name="fps" value="30"/>
+    <param name="camera_name" value="csi0"/>
+    <param name="frame_id" value="csi0_optical_frame"/>
+  </node>
+</launch>

@@ -1,0 +1,6 @@
+
+<launch>
+
+  	<node pkg="data_distribute" type="data_receive" name="data_receive" output="screen" />
+
+</launch>

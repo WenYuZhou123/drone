@@ -1,0 +1,16 @@
+yolo_model:
+
+  config_file:
+    name: yolov4-tiny-tank.cfg
+  weight_file:
+    name: yolov4-tiny-tank.weights
+  threshold:
+    value: 0.3
+  detection_classes:
+    names:
+      - bridge
+      - bunker
+      - tank
+      - tent
+      - armoredcar
+      - apron

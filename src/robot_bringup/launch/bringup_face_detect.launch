@@ -1,0 +1,11 @@
+<launch> 
+
+	<!--启动USB摄像头节点 -->
+    <include file="$(find usb_cam)/launch/usb_cam-test.launch" />
+
+	<!--启动人脸识别节点 -->
+	<include file="$(find face_detect)/launch/face_detector.launch" />
+
+
+</launch>
+

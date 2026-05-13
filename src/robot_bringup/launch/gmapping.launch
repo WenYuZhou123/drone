@@ -1,0 +1,104 @@
+<launch>
+
+    <!--发布静态坐标转换节点，绑定了T265摄像头坐标系和雷达坐标系laser的相对位置关系 -->
+    <node pkg="tf" type="static_transform_publisher"  name="t265_camera_link_to_laser" args="0 0 0.10 3.14 0 0 camera_link laser 100" />
+
+    <!--发布静态坐标转换节点，绑定了T265摄像头坐标系和无人机机体坐标系base_link的相对位置关系 -->
+    <node pkg="tf" type="static_transform_publisher"  name="t265_camera_link_to_base_link"  args="0 0 0 0 0 0 camera_link base_link 100" />  
+	
+	<!--启动mavros节点 -->
+    <include file="$(find robot_bringup)/launch/px4.launch" />
+
+	<!--启动T265节点 -->
+    <include file="$(find robot_bringup)/launch/demo_t265.launch" />
+
+	<!--启动坐标转换节点 -->
+    <include file="$(find vision_to_mavros)/launch/t265_tf_to_mavros.launch" />
+
+    <!--启动镭神N10激光雷达 -->
+    <include file="$(find robot_bringup)/launch/lsn10.launch" />
+    
+	<!--订阅雷达scan话题 -->
+    <arg name="scan_topic"  default="/scan" />
+	<!--设置基坐标系为base_link-->
+    <arg name="base_frame"  default="base_link"/>
+	<!--设置里程计坐标系-->
+    <arg name="odom_frame"  default="camera_odom_frame"/>
+    <!--启动gmapping节点-->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen" clear_params="true">
+
+	    <!--机器人底盘坐标系基框架，附带在移动底盘的框架，原点-->
+	    <param name="base_frame" value="base_link"/>
+        <!--里程计坐标系-->
+        <param name="odom_frame" value="camera_odom_frame"/>
+	    <!--地图坐标系地图框架，附带在地图上的框架-->
+
+        <param name="map_frame"  value="map"/>
+        <param name="scan_topic" value="scan"/>
+	    <!--地图更新速度，秒0.01-->
+        <param name="map_update_interval" value="0.05"/>
+        <param name="frame_id" value="laser"/>
+        <param name="minimumScore" value="3"/>
+        <param name="occ_thresh" value="0.3"/>
+        <param name="maxRange" value="5.0"/>
+        <!--探测最大可用范围，即光束能到达的范围。default: 80.0-->
+        <param name="maxUrange" value="4.0"/>
+        <!--endpoint匹配标准差-->
+        <param name="sigma" value="0.05"/>
+        <param name="kernelSize" value="1"/>
+        <param name="lstep" value="0.05"/><!--平移优化步长-->
+        <param name="astep" value="0.05"/><!--旋转优化步长-->
+        <param name="iterations" value="5"/><!--扫描匹配迭代步数-->
+        <param name="lsigma" value="0.075"/><!--用于扫描匹配概率的激光标准差-->
+        <param name="ogain" value="3.0"/>
+        <param name="lskip" value="0"/>  <!--每次扫描跳过的光束数.-->
+
+        <param name="srr" value="0.01"/> <!--平移时里程误差作为平移函数(rho/rho)-->
+        <param name="srt" value="0.02"/> <!--平移时的里程误差作为旋转函数 (rho/theta)-->
+        <param name="str" value="0.01"/> <!--旋转时的里程误差作为平移函数 (theta/rho)-->
+        <param name="stt" value="0.02"/> <!--旋转时的里程误差作为旋转函数 (theta/theta)-->
+
+	    <!--线速度角速度在地图的更新-->
+        <param name="linearUpdate" value="0.05"/> <!--机器人每旋转这么远处理一次扫描-->
+        <param name="angularUpdate" value="0.0436"/><!--Process a scan each time the robot rotates this far-->
+        <param name="temporalUpdate" value="-1.0"/><!--如果最新扫描处理比更新慢，则处理1次扫描。该值为负数时候关闭基于时间的更新-->
+        <param name="resampleThreshold" value="0.5"/><!--基于重采样门限的Neff-->
+
+		<!--滤波器中粒子数目-->
+        <param name="particles" value="8"/>
+
+		<!--地图初始尺寸-->
+        <param name="xmin" value="-5.0"/>
+        <param name="ymin" value="-5.0"/>
+        <param name="xmax" value="5.0"/>
+        <param name="ymax" value="5.0"/>
+	
+		<!--地图分辨率-->
+        <param name="delta" value="0.05"/>
+		<!--于似然计算的平移采样距离-->
+		<param name="llsamplerange" value="0.01"/>
+        <param name="llsamplestep" value="0.01"/>
+   		<param name="lasamplerange" value="0.005"/>
+        <param name="lasamplestep" value="0.005"/>
+
+        <!--
+        ~transform_publish_period (float, default: 0.05)，变换发布时间间隔.
+        ~occ_thresh (float, default: 0.25)，栅格地图栅格值 (i.e., set to 100 in the resultingsensor_msgs/LaserScan).
+        ~maxRange (float)，传感器最大范围。如果在传感器距离范围内没有障碍物应该在地图上显示为自由空间。 maxUrange < 真实传感器最大距离范围 <= maxRange.
+        -->
+        <!-- 
+        需要的tf转换:
+                  →base_link，通常是一个固定值，通过 robot_state_publisher, 或者 tf static_transform_publisher.周期性广播
+        base_link →odom，通常由里程计系统提供
+        提供的tf转换:
+        map → odom，地图坐标系中机器人当前姿态估计
+        -->
+        <!-- 
+        particles (int, default: 30) :
+        gmapping算法中的粒子数，因为gmapping使用的是粒子滤波算法，粒子在不断地迭代更新，所以选取一个合适的粒子数可以让算法在保证比较准确的同时有较高的速度。
+        minimumScore (float, default: 0.0) :
+        最小匹配得分，这个参数很重要，它决定了对激光的一个置信度，越高说明对激光匹配算法的要求越高，激光的匹配也越容易失败而转去使用里程计数据，
+        而设的太低又会使地图中出现大量噪声，所以需要权衡调整。
+        -->
+    </node>
+</launch>

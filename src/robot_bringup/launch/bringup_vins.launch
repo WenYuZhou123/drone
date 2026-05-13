@@ -1,0 +1,14 @@
+<launch> 
+	
+    
+	<!--启动mavros节点 -->
+    <include file="$(find mavros)/launch/px4.launch" />
+
+	<!--启动VINS节点 -->
+    <include file="$(find robot_bringup)/launch/vins_fusion.launch" />
+    
+    <!--启动tf节点 -->
+    <include file="$(find px4_command)/launch/cartogra_tf_to_mavros.launch" />
+
+</launch>
+

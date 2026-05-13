@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <!-- Load Parameter -->
+  <param name="use_cpu" value="false" />
+
+  <!-- Start yolov8 and ros wrapper for dual cameras in a single node -->
+  <node pkg="yolov8_ros" type="yolo_v8_multi_cam.py" name="yolov8_ros_dual_camera" output="screen">
+    <param name="weight_path" value="$(find yolov8_ros)/weights/yolov8n.pt"/>
+    <param name="image_topic_1" value="/usb_cam/image_raw" />
+    <param name="image_topic_2" value="/d435/color/image_raw" />
+    <param name="pub_topic_1" value="/yolov8/BoundingBoxes" />
+    <param name="pub_topic_2" value="/yolov8/camera_2/BoundingBoxes" />
+    <param name="camera_frame_1" value="usb_cam"/>
+    <param name="camera_frame_2" value="d435"/>
+    <param name="visualize" value="false"/>
+    <param name="conf" value="0.5" />
+  </node>
+</launch>

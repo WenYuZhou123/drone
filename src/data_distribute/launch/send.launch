@@ -1,0 +1,5 @@
+<launch>
+
+  	<node pkg="data_distribute" type="data_send" name="data_send" output="screen" />
+
+</launch>

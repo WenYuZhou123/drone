@@ -1,0 +1,7 @@
+<launch>
+    <!-- 全局的 test_param -->
+    <param name="object_name" value="landing" />
+
+    <node name='darknet_real_position' pkg="darknet_real_position" type="darknet_real_position" output="screen" />
+
+</launch>

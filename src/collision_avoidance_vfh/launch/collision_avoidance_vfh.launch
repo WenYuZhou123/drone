@@ -1,0 +1,7 @@
+<launch>
+	<include file="$(find robot_bringup)/launch/px4.launch" />
+
+	<include file="$(find robot_bringup)/launch/lsn10.launch" />
+
+	<!--<node pkg="px4_control" type="collision_avoidance_vfh_node" name="collision_avoidance_vfh_node" output="screen" />-->
+</launch>

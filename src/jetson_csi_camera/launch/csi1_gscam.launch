@@ -1,0 +1,27 @@
+<launch>
+  <arg name="width"  default="1280"/>
+  <arg name="height" default="720"/>
+  <arg name="fps"    default="30"/>
+  <arg name="flip"   default="0"/>
+
+  <group ns="csi1">
+    <node pkg="gscam" type="gscam" name="gscam" output="screen">
+      <param name="camera_name" value="csi1"/>
+      <param name="frame_id" value="csi1_optical_frame"/>
+
+      <param name="gscam_config"
+             value="nvarguscamerasrc sensor-id=1 !
+                    video/x-raw(memory:NVMM),width=$(arg width),height=$(arg height),framerate=$(arg fps)/1 !
+                    nvvidconv flip-method=$(arg flip) !
+                    queue !
+                    video/x-raw,format=RGBx !
+                    videoconvert !
+                    queue !
+                    video/x-raw,format=RGB"/>
+
+      <param name="sync_sink" value="false"/>
+      <param name="preroll" value="false"/>
+      <param name="reopen_on_eof" value="true"/>
+    </node>
+  </group>
+</launch>

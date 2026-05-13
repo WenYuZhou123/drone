@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="planner_bridge" name="planner_bridge_node" type="planner_bridge_node" output="screen" />
+</launch>

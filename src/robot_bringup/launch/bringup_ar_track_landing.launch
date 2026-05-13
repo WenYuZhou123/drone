@@ -1,0 +1,22 @@
+<launch>  
+	<!--设置静态坐标系 -->
+    <node pkg="tf" type="static_transform_publisher"  name="t265_camera_link_to_base_link"  args="0 0 0 0 0 0 camera_link base_link 100" />  	
+    
+	<!--启动mavros节点 -->
+    <include file="$(find mavros)/launch/px4.launch" />
+
+	<!--启动T265节点 -->
+    <include file="$(find realsense2_camera)/launch/demo_t265.launch" />
+
+	<!--启动坐标转换节点 -->
+    <include file="$(find vision_to_mavros)/launch/t265_tf_to_mavros.launch" /> 
+    
+    <!--启动USB摄像头节点 -->
+	<include file="$(find usb_cam)/launch/usb_cam-test.launch" />
+  
+    <!--启动二维码识别节点-->
+    <include file="$(find robot_vision)/launch/ar_track_camera.launch" /> 
+    
+    <!--启动运动控制节点-->
+	<node name='ar_track_landing' pkg="ar_track_landing" type="ar_track_landing" output="screen" />
+</launch>

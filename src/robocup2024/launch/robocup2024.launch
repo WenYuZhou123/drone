@@ -1,0 +1,40 @@
+<launch>
+    <!-- Include MAVROS launch file -->
+    <include file="$(find mavros)/launch/px4.launch" />
+    
+    <!-- Include Livox ROS driver launch file -->
+    <include file="$(find livox_ros_driver2)/launch/msg_MID360.launch" />
+    
+    <!-- Launch lidar_to_mavros node -->
+    <node 
+        name="lidar_to_mavros" 
+        pkg="lidar_to_mavros" 
+        type="lidar_to_mavros" 
+    />
+    
+    <!-- Include USB Camera test launch file -->
+    <include file="$(find usb_cam)/launch/usb_cam-test.launch" />
+    
+    <!-- Include darknet_ros launch file -->
+    <include file="$(find darknet_ros)/launch/darknet_ros.launch" />
+    
+    <!-- Include object_darknet launch file -->
+    <include file="$(find object_darknet)/launch/object_darknet.launch" />
+    
+    <!-- Include SLAM navigation test location launch file -->
+    <include file="$(find slam_navigation)/launch/test_location.launch" />
+    
+    <!-- Include navigation test launch file -->
+    <include file="$(find navigation)/launch/test.launch" />
+    
+    <!-- Uncomment the following line to launch ros_nav_quadrotor_node -->
+    <!--
+    <node 
+        name="ros_nav_quadrotor_node" 
+        pkg="px4_command" 
+        type="ros_nav_quadrotor_node" 
+        output="screen" 
+    />
+    -->
+</launch>
+

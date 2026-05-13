@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <param name="target_object_id" value="chair" />
+
+  <node pkg="follow_yolov8" type="follow_yolov8" name="follow_yolov8" output="screen" />
+
+</launch>
+
+

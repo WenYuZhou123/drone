@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+  <!-- Load Parameter -->
+  <param name="use_cpu" value="false" />
+
+  <!-- Start yolov8 and ros wrapper -->
+  <node pkg="yolov8_ros" type="yolo_v8.py" name="yolov8_ros" output="screen">
+    <!-- Uncomment the desired weight path -->
+    <!-- <param name="weight_path" value="$(find yolov8_ros)/weights/SeaDroneSee__N.pt"/> -->
+    <!-- <param name="weight_path" value="$(find yolov8_ros)/weights/SeaDroneSee_S.pt"/> -->
+    <!-- <param name="weight_path" value="$(find yolov8_ros)/weights/yolov8m.pt"/> -->
+    <!-- <param name="weight_path" value="$(find yolov8_ros)/weights/yolov8n.pt"/> -->
+    <param name="weight_path" value="$(find yolov8_ros)/weights/ring.pt"/>
+
+    <!-- Uncomment the desired image topic -->
+    <!-- <param name="image_topic" value="/camera/color/image_raw"/> -->
+    <param name="image_topic" value="/usb_cam/image_raw" />
+
+    <param name="pub_topic" value="/yolov8/BoundingBoxes" />
+
+    <!-- Uncomment the desired camera frame -->
+    <!-- <param name="camera_frame" value="camera_color_frame"/> -->
+    <param name="camera_frame" value="usb_cam"/>
+
+    <param name="visualize" value="false" />
+    <param name="conf" value="0.75" />
+  </node>
+</launch>
+

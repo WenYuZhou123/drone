@@ -1,0 +1,6 @@
+<launch>
+
+	<node pkg="px4_command" type="ros_nav_quadrotor_node" name="ros_nav_quadrotor_node" output="screen">
+		<param name="desire_posz_" value = "0.6"/>				
+	</node>
+</launch>

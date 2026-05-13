@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>quaternion_converter</name>
+  <version>0.0.1</version>
+  <description>The quaternion converter package</description>
+
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>tf2</build_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf2</exec_depend>
+
+  <export>
+    <build_type>catkin</build_type>
+  </export>
+</package>

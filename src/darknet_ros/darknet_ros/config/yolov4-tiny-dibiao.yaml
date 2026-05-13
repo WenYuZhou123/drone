@@ -1,0 +1,14 @@
+yolo_model:
+
+  config_file:
+    name: yolov4-tiny-dibiao.cfg
+  weight_file:
+    name: yolov4-tiny-dibiao.weights
+  threshold:
+    value: 0.2
+  detection_classes:
+    names:
+      - ring
+      - landing
+      - square
+      

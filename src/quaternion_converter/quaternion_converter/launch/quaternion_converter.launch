@@ -1,0 +1,11 @@
+<launch>
+    <!-- 定义参数 -->
+    <param name="q_roll" value="0.0" />      <!-- Roll（弧度） -->
+    <param name="q_pitch" value="0.0" />     <!-- Pitch（弧度） -->
+    <param name="q_yaw" value="0.0" />       <!-- Yaw（弧度） -->
+
+    <!-- 启动 quaternion_converter_node -->
+    <node name="quaternion_converter_node" pkg="quaternion_converter" type="quaternion_converter" output="screen">
+        <!-- 如果需要，可以在这里传递其他参数 -->
+    </node>
+</launch>

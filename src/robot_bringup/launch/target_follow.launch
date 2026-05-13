@@ -1,0 +1,15 @@
+<launch> 
+    <node pkg="tf" type="static_transform_publisher"  name="camera_link_to_base_link"  args="0 0 0 0 0 0 camera_link base_link 100" /> 
+    
+    <include file="$(find robot_bringup)/launch/camera_t265.launch" />	
+    
+    <include file="$(find vision_to_mavros)/launch/t265_tf_to_mavros.launch" />
+    
+    <include file="$(find darknet_ros)/launch/darknet_ros.launch" />
+    
+    <include file="$(find darknet_real_position)/launch/darknet_real_position.launch" />
+    
+ 	<include file="$(find robot_bringup)/launch/camera_d435.launch" />
+    
+</launch>
+

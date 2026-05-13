@@ -1,0 +1,11 @@
+build/
+devel/
+logs/
+.vscode/
+.catkin_workspace
+
+*.pyc
+__pycache__/
+
+src/FAST_LIO/PCD/scans.pcd
+src/darknet_ros/darknet_ros/yolo_network_config/weights/yolov2.weights
